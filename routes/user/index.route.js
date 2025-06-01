@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get("/", userOperations.loginPage);
 
+router.use("/", require("./blogs/blogs.route"));
+
 module.exports = router
