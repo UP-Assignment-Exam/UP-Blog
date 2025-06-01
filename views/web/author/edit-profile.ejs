@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - <%= author.name %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header/Navigation -->
+<nav class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <h1 class="text-xl font-bold text-gray-900">TechBlog</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                <a href="/blog" class="text-gray-600 hover:text-gray-900 transition-colors">Blog</a>
+                <a href="/author/profile" class="text-blue-600 hover:text-blue-700 transition-colors">Profile</a>
+                <a href="/contact" class="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center mb-4">
+            <a href="/author/profile" class="text-blue-600 hover:text-blue-700 mr-4">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Profile
+            </a>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-900">Edit Profile</h1>
+        <p class="text-gray-600 mt-2">Update your profile information and social media links.</p>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div class="bg-white rounded-lg shadow-sm">
+        <form id="editProfileForm" class="p-8 space-y-8">
+            <!-- Profile Image Section -->
+            <div class="flex flex-col items-center space-y-4">
+                <div class="relative">
+                    <img id="profileImagePreview"
+                         src="<%= author.profileImage %>"
+                         alt="Profile Picture"
+                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-lg">
+                    <button type="button"
+                            class="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-200"
+                            onclick="document.getElementById('profileImageInput').click()">
+                        <i class="fas fa-camera text-sm"></i>
+                    </button>
+                </div>
+                <input type="file"
+                       id="profileImageInput"
+                       name="profileImage"
+                       accept="image/*"
+                       class="hidden"
+                       onchange="previewImage(this)">
+                <p class="text-sm text-gray-500">Click the camera icon to change your profile picture</p>
+            </div>
+
+            <!-- Basic Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Username -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">@</span>
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               value="<%= author.username %>"
+                               class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               placeholder="Enter username">
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                        Full Name
+                    </label>
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           value="<%= author.name %>"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                           placeholder="Enter full name">
+                </div>
+            </div>
+
+            <!-- Bio -->
+            <div>
+                <label for="bio" class="block text-sm font-medium text-gray-700 mb-2">
+                    Bio
+                </label>
+                <textarea id="bio"
+                          name="bio"
+                          rows="4"
+                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                          placeholder="Tell us about yourself..."><%= author.bio %></textarea>
+                <p class="text-sm text-gray-500 mt-1">Maximum 500 characters</p>
+            </div>
+
+            <!-- Social Media Links -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Social Media Links</h3>
+                <div class="space-y-4">
+                    <!-- Facebook -->
+                    <div>
+                        <label for="facebook" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fab fa-facebook-f text-blue-600 mr-2"></i>Facebook
+                        </label>
+                        <input type="url"
+                               id="facebook"
+                               name="facebook"
+                               value="<%= author.socialLinks.facebook %>"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               placeholder="https://facebook.com/username">
+                    </div>
+
+                    <!-- Twitter -->
+                    <div>
+                        <label for="twitter" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fab fa-twitter text-blue-400 mr-2"></i>Twitter
+                        </label>
+                        <input type="url"
+                               id="twitter"
+                               name="twitter"
+                               value="<%= author.socialLinks.twitter %>"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               placeholder="https://twitter.com/username">
+                    </div>
+
+                    <!-- GitHub -->
+                    <div>
+                        <label for="github" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fab fa-github text-gray-800 mr-2"></i>GitHub
+                        </label>
+                        <input type="url"
+                               id="github"
+                               name="github"
+                               value="<%= author.socialLinks.github %>"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               placeholder="https://github.com/username">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                <button type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Changes
+                </button>
+                <button type="button"
+                        onclick="resetForm()"
+                        class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <i class="fas fa-undo mr-2"></i>
+                    Reset
+                </button>
+                <a href="/author/profile"
+                   class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center text-center">
+                    <i class="fas fa-times mr-2"></i>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center text-gray-600">
+            <p>&copy; 2024 TechBlog. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Preview uploaded image
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileImagePreview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Reset form to original values
+    function resetForm() {
+        if (confirm('Are you sure you want to reset all changes?')) {
+            document.getElementById('editProfileForm').reset();
+            document.getElementById('profileImagePreview').src = '<%= author.profileImage %>';
+        }
+    }
+
+    // Handle form submission
+    document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form data
+        const formData = new FormData(this);
+
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Saving...';
+        submitBtn.disabled = true;
+
+        // Simulate API call (replace with actual API endpoint)
+        setTimeout(() => {
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+
+            // Show success message
+            alert('Profile updated successfully!');
+
+            // Optionally redirect to profile page
+            // window.location.href = '/author/profile';
+        }, 2000);
+    });
+
+    // Auto-resize bio textarea
+    const bioTextarea = document.getElementById('bio');
+    bioTextarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+
+    // Character counter for bio
+    const bioCounter = document.createElement('span');
+    bioCounter.className = 'text-sm text-gray-400 float-right';
+    bioTextarea.parentNode.appendChild(bioCounter);
+
+    function updateBioCounter() {
+        const remaining = 500 - bioTextarea.value.length;
+        bioCounter.textContent = remaining + ' characters remaining';
+        bioCounter.className = remaining < 50 ? 'text-sm text-red-500 float-right' : 'text-sm text-gray-400 float-right';
+    }
+
+    bioTextarea.addEventListener('input', updateBioCounter);
+    updateBioCounter(); // Initial count
+</script>
+</body>
+</html>
