@@ -11,7 +11,6 @@ let PORT = process.env.PORT || 8080
 // Set up view engine
 app.set("view engine", "ejs"); // or "pug", "hbs", etc.
 app.set("views", path.join(__dirname, "views"));
-
 // Middleware
 app.use(express.static(path.join(__dirname, "public"))); // For serving static files
 

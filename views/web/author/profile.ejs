@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= author.name %> - Author Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header/Navigation -->
+<nav class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <h1 class="text-xl font-bold text-gray-900">TechBlog</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                <a href="/blog" class="text-gray-600 hover:text-gray-900 transition-colors">Blog</a>
+                <a href="/about" class="text-gray-600 hover:text-gray-900 transition-colors">About</a>
+                <a href="/contact" class="text-blue-600 hover:text-blue-700 transition-colors">Contact</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Author Profile Section -->
+    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+        <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+            <!-- Profile Image -->
+            <div class="flex-shrink-0">
+                <img src="<%= author && author.profileImage ? author.profileImage : '/assets/images/default-avatar.png' %>"
+                     alt="<%= author && author.name ? String(author.name).replace(/[<>'"]/g, '') : 'User avatar' %>"
+                     class="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-lg"
+                     onerror="this.src='/assets/images/default-avatar.png'">
+            </div>
+
+            <!-- Author Info -->
+            <div class="flex-1 text-center md:text-left">
+                <div class="mb-2">
+                    <span class="text-sm text-gray-500">@<%= author.username %></span>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= author.name %></h1>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6"><%= author.bio %></p>
+
+                <!-- Social Links -->
+                <div class="flex justify-center md:justify-start space-x-4 mb-6">
+                    <a href="<%= author.socialLinks.facebook %>"
+                       class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition-colors duration-200"
+                       target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="<%= author.socialLinks.twitter %>"
+                       class="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-full transition-colors duration-200"
+                       target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="<%= author.socialLinks.github %>"
+                       class="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full transition-colors duration-200"
+                       target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Button -->
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="/contact"
+                       class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Get in Touch
+                    </a>
+                    <a href="/author/edit-profile"
+                       class="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <i class="fas fa-edit mr-2"></i>
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Posts Section -->
+    <div class="bg-white rounded-lg shadow-sm p-8">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+            <span class="text-sm text-gray-500"><%= author.blogPosts.length %> articles published</span>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <% author.blogPosts.forEach(post => { %>
+                <article class="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 border border-gray-100">
+                    <!-- Category Badge -->
+                    <div class="mb-3">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                            <%= post.category %>
+                        </span>
+                    </div>
+
+                    <!-- Post Title -->
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 leading-tight">
+                        <a href="/blog/<%= post.id %>" class="hover:text-blue-600 transition-colors">
+                            <%= post.title %>
+                        </a>
+                    </h3>
+
+                    <!-- Post Excerpt -->
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed"><%= post.excerpt %></p>
+
+                    <!-- Post Meta -->
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <time datetime="<%= post.publishDate %>">
+                            <%= new Date(post.publishDate).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            }) %>
+                        </time>
+                        <span class="flex items-center">
+                            <i class="fas fa-clock mr-1"></i>
+                            <%= post.readTime %>
+                        </span>
+                    </div>
+
+                    <!-- Read More Link -->
+                    <div class="mt-4">
+                        <a href="/blog/<%= post.id %>"
+                           class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+                            Read more →
+                        </a>
+                    </div>
+                </article>
+            <% }); %>
+        </div>
+
+        <!-- View All Posts Link -->
+        <div class="text-center mt-8">
+            <a href="/blog"
+               class="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 font-medium rounded-lg transition-colors duration-200">
+                <i class="fas fa-list mr-2"></i>
+                View All Articles
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center text-gray-600">
+            <p>&copy; 2024 TechBlog. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

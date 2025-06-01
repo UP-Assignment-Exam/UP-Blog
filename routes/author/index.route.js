@@ -1,9 +1,11 @@
 const express = require("express");
+const router = express.Router();
 
 const authorOperations = require("./author.operation");
 
-const router = express.Router();
-
-router.use("/", authorOperations.loginPage);
+// Author login page
+router.get("/login", authorOperations.loginPage);
+router.get("/profile", authorOperations.profilePage);
+router.get("/edit-profile" ,authorOperations.editProfilePage);
 
 module.exports = router
