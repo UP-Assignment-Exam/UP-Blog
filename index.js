@@ -5,6 +5,7 @@ const express = require('express')
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const app = express()
+const expressLayouts = require('express-ejs-layouts');
 
 let PORT = process.env.PORT || 8080
 
@@ -23,6 +24,13 @@ app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
+
+// Use express-ejs-layouts
+app.use(expressLayouts);
+
+// Optional: Set layout extractScripts and extractStyles if needed
+app.set('layout extractScripts', true);
+app.set('layout extractStyles', true);
 
 app.use("/", require("./routes/index"));
 

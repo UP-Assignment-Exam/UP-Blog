@@ -10,6 +10,16 @@ const UserSchema = mongoose.Schema(
             required: [true, "Username must not be null"],
             trim: true,
         },
+        firstName: {
+            type: String,
+            required: [true, "Username must not be null"],
+            trim: true,
+        },
+        lastName: {
+            type: String,
+            required: [true, "Username must not be null"],
+            trim: true,
+        },
         password: { type: String, trim: true },
         email: {
             type: String,

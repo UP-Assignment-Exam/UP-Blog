@@ -1,0 +1,145 @@
+<!-- All Blogs Section -->
+<div id="blogs" class="content-section active">
+  <h2 style="margin-bottom: 20px; color: #333">All Blogs</h2>
+
+  <div class="blog-card">
+    <div class="blog-header">
+      <div>
+        <h3 class="blog-title">Getting Started with Node.js</h3>
+        <div class="blog-meta">
+          <span><i class="fas fa-user"></i> John Smith</span>
+          <span><i class="fas fa-calendar"></i> May 15, 2025</span>
+          <span class="status-badge status-published">Published</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-content">
+      <p>
+        Node.js is a powerful JavaScript runtime built on Chrome's V8 JavaScript
+        engine. In this comprehensive guide, we'll explore how to get started
+        with Node.js development, from installation to building your first
+        application...
+      </p>
+    </div>
+    <div class="blog-actions">
+      <button class="action-btn" onclick="toggleLike(this)">
+        <i class="far fa-heart"></i> <span>24</span>
+      </button>
+      <button class="action-btn" onclick="toggleFavorite(this)">
+        <i class="far fa-bookmark"></i> Favorite
+      </button>
+      <button class="action-btn" onclick="toggleComments(this)">
+        <i class="far fa-comment"></i> Comments (5)
+      </button>
+    </div>
+    <div class="comment-section" style="display: none">
+      <div class="comment">
+        <div class="comment-author">Alice Johnson</div>
+        <div class="comment-text">
+          Great tutorial! Very helpful for beginners.
+        </div>
+      </div>
+      <div class="comment">
+        <div class="comment-author">Bob Wilson</div>
+        <div class="comment-text">
+          Thanks for sharing this. Looking forward to more Node.js content!
+        </div>
+      </div>
+      <div class="comment-form">
+        <input
+          type="text"
+          class="comment-input"
+          placeholder="Add a comment..."
+        />
+        <button class="comment-btn" onclick="addComment(this)">Post</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-card">
+    <div class="blog-header">
+      <div>
+        <h3 class="blog-title">Understanding React Hooks</h3>
+        <div class="blog-meta">
+          <span><i class="fas fa-user"></i> Sarah Davis</span>
+          <span><i class="fas fa-calendar"></i> May 20, 2025</span>
+          <span class="status-badge status-published">Published</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-content">
+      <p>
+        React Hooks revolutionized how we write React components. This article
+        dives deep into useState, useEffect, and custom hooks, providing
+        practical examples and best practices...
+      </p>
+    </div>
+    <div class="blog-actions">
+      <button class="action-btn" onclick="toggleLike(this)">
+        <i class="far fa-heart"></i> <span>18</span>
+      </button>
+      <button class="action-btn" onclick="toggleFavorite(this)">
+        <i class="far fa-bookmark"></i> Favorite
+      </button>
+      <button class="action-btn" onclick="toggleComments(this)">
+        <i class="far fa-comment"></i> Comments (3)
+      </button>
+    </div>
+    <div class="comment-section" style="display: none">
+      <div class="comment">
+        <div class="comment-author">Mike Chen</div>
+        <div class="comment-text">
+          Excellent explanation of hooks! This cleared up my confusion.
+        </div>
+      </div>
+      <div class="comment-form">
+        <input
+          type="text"
+          class="comment-input"
+          placeholder="Add a comment..."
+        />
+        <button class="comment-btn" onclick="addComment(this)">Post</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-card">
+    <div class="blog-header">
+      <div>
+        <h3 class="blog-title">CSS Grid vs Flexbox</h3>
+        <div class="blog-meta">
+          <span><i class="fas fa-user"></i> John Smith</span>
+          <span><i class="fas fa-calendar"></i> June 5, 2025</span>
+          <span class="status-badge status-draft">Draft</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-content">
+      <p>
+        When should you use CSS Grid vs Flexbox? This comprehensive comparison
+        will help you make the right choice for your layout needs...
+      </p>
+    </div>
+    <div class="blog-actions">
+      <button class="action-btn" onclick="toggleLike(this)">
+        <i class="far fa-heart"></i> <span>0</span>
+      </button>
+      <button class="action-btn" onclick="toggleFavorite(this)">
+        <i class="far fa-bookmark"></i> Favorite
+      </button>
+      <button class="action-btn" onclick="toggleComments(this)">
+        <i class="far fa-comment"></i> Comments (0)
+      </button>
+    </div>
+    <div class="comment-section" style="display: none">
+      <div class="comment-form">
+        <input
+          type="text"
+          class="comment-input"
+          placeholder="Add a comment..."
+        />
+        <button class="comment-btn" onclick="addComment(this)">Post</button>
+      </div>
+    </div>
+  </div>
+</div>

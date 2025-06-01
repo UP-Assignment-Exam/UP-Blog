@@ -1,0 +1,52 @@
+<!-- Create Blog Section -->
+<div id="create" class="content-section active">
+  <h2 style="margin-bottom: 20px; color: #333">Create New Blog Post</h2>
+
+  <div class="editor-container">
+    <form id="blogForm">
+      <div class="form-group">
+        <label class="form-label" for="blogTitle">Blog Title</label>
+        <input
+          type="text"
+          id="blogTitle"
+          class="form-input"
+          placeholder="Enter blog title..."
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="blogContent">Content</label>
+        <div id="editor"></div>
+      </div>
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        "
+      >
+        <div class="form-group">
+          <label class="form-label" for="blogStatus">Status</label>
+          <select id="blogStatus" class="form-select">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+            <option value="scheduled">Scheduled</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="scheduleDate"
+            >Schedule Date (if applicable)</label
+          >
+          <input type="datetime-local" id="scheduleDate" class="form-input" />
+        </div>
+      </div>
+
+      <button type="button" class="publish-btn" onclick="publishBlog()">
+        <i class="fas fa-paper-plane"></i> Publish Blog
+      </button>
+    </form>
+  </div>
+</div>

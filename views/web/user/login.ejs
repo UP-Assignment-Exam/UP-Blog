@@ -3,114 +3,419 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Login - Your Blog Platform</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <style type="text/tailwindcss">
-      @theme {
-        --color-clifford: #da373d;
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .auth-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .auth-title {
+        font-size: 2.5em;
+        color: #333;
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .auth-subtitle {
+        color: #666;
+        font-size: 1.1em;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .password-container {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .auth-btn {
+        width: 100%;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+      }
+
+      .auth-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .auth-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .auth-links {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .auth-link {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .auth-link:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+        color: #666;
+      }
+
+      .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e1e5e9;
+      }
+
+      .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 15px;
+      }
+
+      .alert {
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .auth-container {
+          padding: 30px 20px;
+        }
+
+        .auth-title {
+          font-size: 2em;
+        }
       }
     </style>
   </head>
   <body>
-    <section class="bg-gray-50 dark:bg-gray-900">
-      <div
-        class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
-      >
-        <a
-          href="#"
-          class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          <img
-            class="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-            alt="logo"
+    <div class="auth-container">
+      <div class="auth-header">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to your account</p>
+      </div>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error"><%= error %></div>
+      <% } %> <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success"><%= success %></div>
+      <% } %>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
+            required
+            placeholder="Enter your email"
+            value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>"
           />
-          Flowbite
-        </a>
-        <div
-          class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
-        >
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1
-              class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="password-container">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-input"
+              required
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              onclick="togglePassword()"
             >
-              Sign in to your account
-            </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label
-                  for="email"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Your email</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  required=""
-                />
-              </div>
-              <div>
-                <label
-                  for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Password</label
-                >
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <div class="flex items-center justify-between">
-                <div class="flex items-start">
-                  <div class="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div class="ml-3 text-sm">
-                    <label
-                      for="remember"
-                      class="text-gray-500 dark:text-gray-300"
-                      >Remember me</label
-                    >
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >Forgot password?</a
-                >
-              </div>
-              <button
-                type="submit"
-                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Sign in
-              </button>
-              <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?
-                <a
-                  href="#"
-                  class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >Sign up</a
-                >
-              </p>
-            </form>
+              👁️
+            </button>
           </div>
         </div>
+
+        <button type="submit" class="auth-btn" id="loginBtn">
+          <span id="btnText">Sign In</span>
+          <span id="btnLoading" class="loading" style="display: none"></span>
+        </button>
+      </form>
+
+      <div class="auth-links">
+        <p>
+          Don't have an account?
+          <a href="/auth/register" class="auth-link">Sign up here</a>
+        </p>
+        <p style="margin-top: 10px">
+          <a href="/auth/forgot-password" class="auth-link"
+            >Forgot your password?</a
+          >
+        </p>
       </div>
-    </section>
+    </div>
+
+    <script>
+      // Toggle password visibility
+      function togglePassword() {
+        const passwordInput = document.getElementById('password')
+        const toggleBtn = document.querySelector('.password-toggle')
+
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text'
+          toggleBtn.textContent = '🙈'
+        } else {
+          passwordInput.type = 'password'
+          toggleBtn.textContent = '👁️'
+        }
+      }
+
+      async function handleLogin (e) {
+          e.preventDefault()
+
+          const loginBtn = document.getElementById('loginBtn')
+          const btnText = document.getElementById('btnText')
+          const btnLoading = document.getElementById('btnLoading')
+
+          // Show loading state
+          loginBtn.disabled = true
+          btnText.style.display = 'none'
+          btnLoading.style.display = 'inline-block'
+
+          // Clear previous alerts
+          const existingAlert = document.querySelector('.alert')
+          if (existingAlert) {
+            existingAlert.remove()
+          }
+
+          const formData = new FormData(this)
+          const loginData = {
+            email: formData.get('email'),
+            password: formData.get('password')
+          }
+
+          try {
+            const response = await fetch('/api/auth/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(loginData)
+            })
+
+            // Check if response exists before continuing
+            if (!response) return
+
+            if (response.status == 200) {
+              const result = response.json()
+              // Success - show success message and redirect
+              showAlert('Login successful! Redirecting...', 'success')
+
+              // Store token if provided
+              if (result.token) {
+                localStorage.setItem('authToken', result.token)
+              }
+
+              // Redirect after short delay
+              setTimeout(() => {
+                window.location.href = result.redirectUrl || '/dashboard'
+              }, 1500)
+            } else {
+              const html = await response.text()
+
+              const bodyContent = html.match(
+                /<body[^>]*>((.|[\n\r])*)<\/body>/i
+              )
+              if (bodyContent && bodyContent.length > 1) {
+                document.body.innerHTML = bodyContent[1]
+              }
+              this.reset()
+
+              document.getElementById('loginForm').addEventListener('submit', handleLogin);
+              return;
+            }
+          } catch (error) {
+            console.error('Login error:', error)
+            showAlert(
+              'Network error. Please check your connection and try again.',
+              'error'
+            )
+          } finally {
+            // Reset button state
+            loginBtn.disabled = false
+            btnText.style.display = 'inline'
+            btnLoading.style.display = 'none'
+          }
+        }
+
+      // Handle form submission with AJAX
+      document
+        .getElementById('loginForm')
+        .addEventListener('submit', handleLogin)
+
+      // Show alert message
+      function showAlert(message, type) {
+        const alertDiv = document.createElement('div')
+        alertDiv.className = `alert alert-${type}`
+        alertDiv.textContent = message
+
+        const form = document.getElementById('loginForm')
+        form.parentNode.insertBefore(alertDiv, form)
+
+        // Auto-remove after 5 seconds for success messages
+        if (type === 'success') {
+          setTimeout(() => {
+            alertDiv.remove()
+          }, 5000)
+        }
+      }
+
+      // Add input validation feedback
+      document.getElementById('email').addEventListener('blur', function () {
+        if (this.value && !this.checkValidity()) {
+          this.style.borderColor = '#dc3545'
+        } else {
+          this.style.borderColor = '#e1e5e9'
+        }
+      })
+
+      document
+        .getElementById('password')
+        .addEventListener('input', function () {
+          if (this.value.length > 0 && this.value.length < 6) {
+            this.style.borderColor = '#ffc107'
+          } else {
+            this.style.borderColor = '#e1e5e9'
+          }
+        })
+    </script>
   </body>
 </html>

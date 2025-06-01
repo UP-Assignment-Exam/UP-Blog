@@ -43,9 +43,20 @@ PORT=3000
 USE_DB=event-management
 
 # Max file upload size
-LimitbodyParser=50mb
+LIMIT_BODY_PARSER=50mb
 
+# MongoDB connection string
 DATABASE_CONNECTION_STRING=mongodb+srv://<username>:<password>@<cluster-url>/event-management?retryWrites=true&w=majority
+
+# Email configuration
+EMAIL_USER=your-email
+EMAIL_APP_PASSWORD=your-app-password-here
+
+# Frontend URL
+FRONTEND_URL=http://localhost:3000
+
+# Node environment
+NODE_ENV=development
 ```
 
 > **Note**: Replace the placeholder `<username>`, `<password>`, and `<cluster-url>` with your actual MongoDB credentials.
